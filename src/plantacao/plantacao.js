@@ -1,16 +1,16 @@
 function plantaBatata(){
     //se a semente de batata tiver selecionada e possui mais de 0 sementes, planta batata
-    //com o tempo a batata cresce
+    //com o tempo a batata cresce se a terra estiver regada
 }
 
 function plantaCenoura() {
     //se a semente de cenoura tiver selecionada e possui mais de 0 sementes, planta cenoura
-    //com o tempo a cenoura cresce
+    //com o tempo a cenoura cresce se a terra estiver regada
 }
 
 function plantaRabanete() {
     //se a semente de rabanete tiver selecionada e possui mais de 0 sementes, planta rabanete
-    //com o tempo o rabanete cresce
+    //com o tempo o rabanete cresce se a terra estiver regada
 }
 
 function colheBatata() {
