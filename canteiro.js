@@ -34,6 +34,8 @@ export function limpaCanteiro() {
             espacoClicado.classList.remove('pedras');
         } else if (espacoClicado.classList.contains('ervas-daninhas')) {
             espacoClicado.classList.remove('ervas-daninhas');
+        } else if (espacoClicado.classList.contains('espaco')) {
+            prepararSolo();
         }
     });
 }
