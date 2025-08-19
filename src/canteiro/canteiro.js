@@ -1,3 +1,5 @@
+import { enxadaSelecionada } from '../menu/ferramentas.js';
+
 const canteiro = document.querySelector('.canteiro');
 const gridSize = 12;
 
@@ -39,7 +41,18 @@ export function limpaCanteiro() {
 }
 
 export function preparaSolo() {
-    //com enxada selecionada se não tiver pedras ou ervas daninhas e se não estiver regado
+    canteiro.addEventListener('click', (e) => {
+        const espacoClicado = e.target;
+        if (enxadaSelecionada() &&
+            espacoClicado.classList.contains('espaco') &&
+            !espacoClicado.classList.contains('pedras') &&
+            !espacoClicado.classList.contains('ervas-daninhas') &&
+            !espacoClicado.classList.contains('terra-arada') &&
+            !espacoClicado.classList.contains('terra-regada')
+        ) {
+            espacoClicado.classList.add('terra-arada');
+        }
+    }); 
 }
 
 export function regaSolo() {

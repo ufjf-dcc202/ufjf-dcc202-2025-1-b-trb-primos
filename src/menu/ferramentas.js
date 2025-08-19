@@ -1,11 +1,11 @@
 const enxada = document.getElementById('item-enxada');
 const regador = document.getElementById('item-regador');
 
-function enxadaSelecionada() {
+export function enxadaSelecionada() {
     return enxada.classList.contains('selecionado');
 }
 
-function regadorSelecionado() {
+export function regadorSelecionado() {
     return regador.classList.contains('selecionado');
 }
 
