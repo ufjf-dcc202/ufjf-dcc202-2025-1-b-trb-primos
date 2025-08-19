@@ -1,5 +1,3 @@
-//import { prepararSolo } from './plantacao.js';
-
 const canteiro = document.querySelector('.canteiro');
 const gridSize = 12;
 
@@ -36,8 +34,18 @@ export function limpaCanteiro() {
             espacoClicado.classList.remove('pedras');
         } else if (espacoClicado.classList.contains('ervas-daninhas')) {
             espacoClicado.classList.remove('ervas-daninhas');
-        } else if (espacoClicado.classList.contains('espaco')) {
-            prepararSolo();
         }
     });
+}
+
+export function preparaSolo() {
+    //com enxada selecionada se não tiver pedras ou ervas daninhas e se não estiver regado
+}
+
+export function regaSolo() {
+    //com regador selecionado se o solo estiver preparado
+}
+
+export function secaSolo() {
+    //com o tempo se não regar o solo seca
 }
