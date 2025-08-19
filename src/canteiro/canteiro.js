@@ -1,7 +1,8 @@
-import { enxadaSelecionada } from '../menu/ferramentas.js';
+import { enxadaSelecionada, regadorSelecionado } from '../menu/ferramentas.js';
 
 const canteiro = document.querySelector('.canteiro');
 const gridSize = 12;
+const TEMPO_SECA = 30000; //30 segundos
 
 const probabilidades = {
     pedra: 0.15,
@@ -51,14 +52,40 @@ export function preparaSolo() {
             !espacoClicado.classList.contains('terra-regada')
         ) {
             espacoClicado.classList.add('terra-arada');
+            secaSolo(espacoClicado);
         }
     }); 
 }
 
 export function regaSolo() {
-    //com regador selecionado se o solo estiver preparado
+    canteiro.addEventListener('click', (e) => {
+        const espacoClicado = e.target;
+        if (regadorSelecionado() && espacoClicado.classList.contains('terra-arada')) {
+            espacoClicado.classList.add('terra-regada');
+            espacoClicado.classList.remove('terra-arada');
+            secaSolo(espacoClicado);
+        }
+    });
 }
 
-export function secaSolo() {
-    //com o tempo se não regar o solo seca
+function secaSolo(espaco) {
+    setTimeout(() => {
+        if (espaco.classList.contains('terra-regada')) {
+            espaco.classList.remove('terra-regada');
+            espaco.classList.add('terra-arada');
+            setTimeout(() => {
+                if (espaco.classList.contains('terra-arada')) {
+                    espaco.classList.remove('terra-arada');
+                }
+            }, TEMPO_SECA);
+        } else if (espaco.classList.contains('terra-arada')) {
+            espaco.classList.remove('terra-arada');
+            setTimeout(() => {
+                if (espaco.classList.contains('terra-arada')) {
+                    espaco.classList.remove('terra-arada');
+                }
+            }, TEMPO_SECA);
+        }
+    }, TEMPO_SECA);
+    
 }
