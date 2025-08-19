@@ -32,11 +32,12 @@ export function inicializaCanteiro() {
 export function limpaCanteiro() {
     canteiro.addEventListener('click', (e) => {
         const espacoClicado = e.target;
-
-        if (espacoClicado.classList.contains('pedras')) {
-            espacoClicado.classList.remove('pedras');
-        } else if (espacoClicado.classList.contains('ervas-daninhas')) {
-            espacoClicado.classList.remove('ervas-daninhas');
+        if(!enxadaSelecionada() && !regadorSelecionado()) {
+            if (espacoClicado.classList.contains('pedras')) {
+                espacoClicado.classList.remove('pedras');
+            } else if (espacoClicado.classList.contains('ervas-daninhas')) {
+                espacoClicado.classList.remove('ervas-daninhas');
+            }
         }
     });
 }
