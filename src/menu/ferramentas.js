@@ -1,6 +1,9 @@
 const enxada = document.getElementById('item-enxada');
 const regador = document.getElementById('item-regador');
 
+//TODO: quando marcar uma ferramenta desmarcar também se tiver uma semente selecionada
+//TODO: enxada está removendo pedra e erva, que devem ser removidos só com o clique sem nada selecionado
+
 export function enxadaSelecionada() {
     return enxada.classList.contains('selecionado');
 }
