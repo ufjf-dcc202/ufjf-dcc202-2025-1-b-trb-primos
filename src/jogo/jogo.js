@@ -1,4 +1,4 @@
-import { inicializaCanteiro, limpaCanteiro } from './canteiro.js';
+import { inicializaCanteiro, limpaCanteiro } from '../canteiro/canteiro.js';
 
 
 export function atualizaJogo() {

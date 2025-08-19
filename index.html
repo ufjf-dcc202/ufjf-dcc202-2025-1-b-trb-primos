@@ -7,14 +7,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arbutus&family=Maiden+Orange&family=Rye&family=Sancreek&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="fontes.css">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="src/jogo/style.css">
+    <link rel="stylesheet" href="src/jogo/fontes.css">
+    <link rel="stylesheet" href="src/canteiro/canteiro.css">
+    <link rel="stylesheet" href="src/menu/menu.css">
 </head>
 <body>
     <main>
         <header class="rye-regular">
             <h1>DCC202 - ICEDew Valley</h1>
-            <p>Brinque à vontade!</p>
         </header>
         
         <section>
@@ -22,25 +24,69 @@
 
             </div>
             <aside class="menu">
-                <div class="sementes">
-                    <ul>
-                        <li class="batata">batata</li>
-                        <li class="cenoura">cenoura</li>
-                        <li class="rabanete">rabanete</li>
-                    </ul>
+                <div class="menu-secao controles">
+                    <button id="btn-reiniciar">Reiniciar</button>
+                    <div class="display-dinheiro">
+                        <span id="contador-dinheiro">$ 500</span>
+                    </div>
                 </div>
-                <div class="ferramentas">
-                    <ul>
-                        <li class="regador">regador</li>
-                        <li class="enxada">cenoura</li>
-                    </ul>
+
+                <div class="menu-secao prateleira">
+                    <h3 class="titulo-prateleira">Ferramentas</h3>
+                    <div class="itens-prateleira">
+                        <div class="item" id="item-enxada">
+                            <img src="assets/ferramentas/enxada.png" alt="Enxada">
+                        </div>
+                        <div class="item" id="item-regador">
+                            <img src="assets/ferramentas/regador.png" alt="Regador">
+                        </div>
+                    </div>
                 </div>
-                <div class="dinheiro">
-                    <p>dinheiro</p>
+
+                <div class="menu-secao prateleira">
+                    <h3 class="titulo-prateleira">Sementes</h3>
+                    <div class="itens-prateleira sementes-loja">
+                        
+                        <div class="item-loja">
+                            <img src="assets/plantacoes/batata/semente_batata.png" alt="Semente de Batata">
+                            <div class="info-item">
+                                <p>Batata (Possui: <span id="qtd-batata">0</span>)</p>
+                                <p class="preco">Preço: $ 50</p>
+                            </div>
+                            <div class="compra-item">
+                                <input type="number" id="compra-qtd-batata" value="1" min="1">
+                                <button id="btn-comprar-batata">Comprar</button>
+                            </div>
+                        </div>
+
+                        <div class="item-loja">
+                            <img src="assets/plantacoes/cenoura/semente_cenoura.png" alt="Semente de Cenoura">
+                            <div class="info-item">
+                                <p>Cenoura (Possui: <span id="qtd-cenoura">0</span>)</p>
+                                <p class="preco">Preço: $ 20</p>
+                            </div>
+                            <div class="compra-item">
+                                <input type="number" id="compra-qtd-cenoura" value="1" min="1">
+                                <button id="btn-comprar-cenoura">Comprar</button>
+                            </div>
+                        </div>
+
+                        <div class="item-loja">
+                            <img src="assets/plantacoes/rabanete/semente_rabanete.png" alt="Semente de Rabanete">
+                            <div class="info-item">
+                                <p>Rabanete (Possui: <span id="qtd-rabanete">0</span>)</p>
+                                <p class="preco">Preço: $ 35</p>
+                            </div>
+                            <div class="compra-item">
+                                <input type="number" id="compra-qtd-rabanete" value="1" min="1">
+                                <button id="btn-comprar-rabanete">Comprar</button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </aside>
         </section>
-
     </main>
     <script src="script.js" type="module"></script>
 </body>
