@@ -1,3 +1,6 @@
 import { inicializaCanteiro } from './canteiro.js';
 
-inicializaCanteiro();
+
+export function atualizaJogo() {
+    inicializaCanteiro();
+}
