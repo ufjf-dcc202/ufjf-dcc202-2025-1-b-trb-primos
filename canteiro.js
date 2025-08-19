@@ -1,3 +1,5 @@
+//import { prepararSolo } from './plantacao.js';
+
 const canteiro = document.querySelector('.canteiro');
 const gridSize = 12;
 
