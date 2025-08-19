@@ -28,3 +28,11 @@ body {
     cursor: pointer;
     position: relative;
 }
+
+.pedras {
+    background-color: red;
+}
+
+.ervas-daninhas {
+    background-color: aqua;
+}
