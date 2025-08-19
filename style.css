@@ -61,7 +61,9 @@ header {
     background: linear-gradient(160deg, #A88569, #9B785C);
     border: 1px solid #7A5424; 
     border-radius: 5px;
-    box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.4), 
+                -2px -2px 3px rgba(212, 178, 148, 0.2);
+
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     display: flex;
     justify-content: center;
@@ -71,8 +73,8 @@ header {
 }
 
 .espaco:hover {
-    transform: scale(1.05);
-    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.4), 0 0 10px #E0C03F;
+    transform: scale(0.98);
+    box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.4);
 }
 
 .terra-arada {
