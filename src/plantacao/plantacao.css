@@ -1,62 +1,125 @@
-.batata1 {
+.batata1::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
     background-image: url('../../assets/plantacoes/batata/batata_1.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    pointer-events: none;
 }
 
-.batata2 {
+.batata2::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
     background-image: url('../../assets/plantacoes/batata/batata_2.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    pointer-events: none;
 }
 
-.batata3 {
+.batata3::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
     background-image: url('../../assets/plantacoes/batata/batata_3.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    pointer-events: none;
 }
 
-.cenoura1 {
+.cenoura1::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
     background-image: url('../../assets/plantacoes/cenoura/cenoura_1.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    pointer-events: none;
 }
 
-.cenoura2 {
+.cenoura2::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
     background-image: url('../../assets/plantacoes/cenoura/cenoura_2.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    pointer-events: none;
 }
 
-.cenoura3 {
+.cenoura3::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
     background-image: url('../../assets/plantacoes/cenoura/cenoura_3.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-}   
+    pointer-events: none;
+}
 
-.rabanete1 {
+.rabanete1::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
     background-image: url('../../assets/plantacoes/rabanete/rabanete_1.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    pointer-events: none;
 }
 
-.rabanete2 {
+.rabanete2::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
     background-image: url('../../assets/plantacoes/rabanete/rabanete_2.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    pointer-events: none;
 }
 
-.rabanete3 {
+.rabanete3::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
     background-image: url('../../assets/plantacoes/rabanete/rabanete_3.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-}   
+    pointer-events: none;
+}

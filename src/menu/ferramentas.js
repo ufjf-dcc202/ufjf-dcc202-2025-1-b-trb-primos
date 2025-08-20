@@ -1,4 +1,4 @@
-import { itemSelecionado, desselecionaItem, selecionaItem, desselecionaTodosItens } from '../jogo/regras.js';
+import { itemSelecionado, selecionaItem, desselecionaTodosItens } from '../jogo/regras.js';
 
 const enxada = document.getElementById('ferramenta-enxada');
 const regador = document.getElementById('ferramenta-regador');
@@ -9,7 +9,7 @@ export function ferramentaSelecionada() {
 }
 
 function selecionaFerramenta(ferramenta) {
-    desselecionaTodosItens(ferramentas);
+    desselecionaTodosItens();
     selecionaItem(ferramenta);
 }
 
@@ -17,7 +17,7 @@ export function selecaoFerramentas() {
     ferramentas.forEach(f => {
         f.addEventListener('click', () => {
             if (itemSelecionado(f)) {
-                desselecionaItem(f);
+                desselecionaTodosItens();
             } else {
                 selecionaFerramenta(f);
             }

@@ -43,9 +43,9 @@ export function inicializaSelecaoSementes() {
                 return;
             }
             if (itemSelecionado(semente)) {
-                desselecionaTodosItens(sementes);
+                desselecionaTodosItens();
             } else {
-                desselecionaTodosItens(sementes);
+                desselecionaTodosItens();
                 selecionaItem(semente);
             }
         });

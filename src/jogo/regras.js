@@ -10,6 +10,7 @@ export function desselecionaItem(item){
     item.classList.remove('selecionado');
 }
 
-export function desselecionaTodosItens(itens) {
-    itens.forEach(i => desselecionaItem(i));
+export function desselecionaTodosItens() {
+    const itensSelecionados = document.querySelectorAll('.selecionado');
+    itensSelecionados.forEach(i => desselecionaItem(i));
 }

@@ -1,5 +1,5 @@
 import { terraFertil, terraRegada, espacoOcupado } from "../canteiro/canteiro.js";
-import { dinheiro, plantas } from "../menu/loja.js";
+import { plantas, adicionaDinheiro } from "../menu/loja.js";
 
 const canteiro = document.querySelector('.canteiro');
 
@@ -12,7 +12,7 @@ function plantaSemente(espacoClicado, semente) {
             plantaCresce(espacoClicado, 'cenoura', 'cenoura1', 'cenoura2', 'cenoura3', 15000);
             break;
         case 'rabanete':
-            plantaCresce(espacoClicado,'rabanete', 'rabanete1', 'rabanete2', 'rabanete3', 20000);
+            plantaCresce(espacoClicado, 'rabanete', 'rabanete1', 'rabanete2', 'rabanete3', 20000);
             break;
         default:
             break;
@@ -52,13 +52,13 @@ function plantaCresce(espacoClicado, semente, nv1, nv2, nv3, tempo) {
 function colhePlanta(espacoClicado) {
     if (espacoClicado.classList.contains('batata3')) {
         espacoClicado.classList.remove('batata3');
-        dinheiro += 10; //TODO: mudar preço de venda
+        adicionaDinheiro(75);
     } else if (espacoClicado.classList.contains('cenoura3')) {
         espacoClicado.classList.remove('cenoura3');
-        dinheiro += 15; //TODO: mudar preço de venda
+       adicionaDinheiro(30);
     } else if (espacoClicado.classList.contains('rabanete3')) {
         espacoClicado.classList.remove('rabanete3');
-        dinheiro += 20; //TODO: mudar preço de venda
+        adicionaDinheiro(50);
     }
 }
 
@@ -72,6 +72,7 @@ function quantidadeSementes(semente) {
 function gastaSemente(semente) {
     if (plantas[semente] && plantas[semente].quantidade > 0) {
         plantas[semente].quantidade--;
+        document.getElementById(`qtd-${semente}`).textContent = plantas[semente].quantidade;
     }
 }
 
