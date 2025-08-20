@@ -90,3 +90,25 @@ function secaSolo(espaco) {
     }, TEMPO_SECA);
     
 }
+
+export function terraFertil(){
+    return canteiro.classList.contains('terra-arada') || canteiro.classList.contains('terra-regada');
+}
+
+export function terraRegada() {
+    return canteiro.classList.contains('terra-regada');
+}
+
+export function espacoOcupado(espaco) {
+    return espaco.classList.contains('batata1') || 
+        espaco.classList.contains('batata2') ||
+        espaco.classList.contains('batata3') ||
+        espaco.classList.contains('cenoura1') ||
+        espaco.classList.contains('cenoura2') ||
+        espaco.classList.contains('cenoura3') ||
+        espaco.classList.contains('rabanete1') ||
+        espaco.classList.contains('rabanete2') ||
+        espaco.classList.contains('rabanete3') ||
+        espaco.classList.contains('pedras') ||
+        espaco.classList.contains('ervas-daninhas');
+}
