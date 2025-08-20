@@ -74,10 +74,20 @@
     transition: background-color 0.2s;
 }
 
+.img-semente {
+    border: 2px solid #A38560;
+    background-color: #4A3425;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
 .ferramenta:hover,
 .ferramenta.selecionado,
-.semente-loja:hover,
-.semente-loja.selecionado {
+.img-semente:hover,
+.img-semente.selecionado {
     background-color: #6B4F3A;
     border-color: #E0C03F;
 }
@@ -99,7 +109,6 @@
     align-items: center;
     gap: 10px;
     padding: 10px;
-    cursor: pointer;
     border-bottom: 2px dashed #7A5424;
 }
 

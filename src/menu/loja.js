@@ -2,20 +2,36 @@ import { itemSelecionado, selecionaItem, desselecionaTodosItens } from '../jogo/
 
 let dinheiro = 500;
 
-const valorBatata = 50;
-const valorCenoura = 20;
-const valorRabanete = 35;
+const plantas = {
+    batata: {
+        quantidade: 0,
+        preco: 50,
+        nome: "Batata"
+    },
+    cenoura: {
+        quantidade: 0,
+        preco: 20,
+        nome: "Cenoura"
+    },
+    rabanete: {
+        quantidade: 0,
+        preco: 35,
+        nome: "Rabanete"
+    }
+};
 
 const contadorDinheiro = document.getElementById("contador-dinheiro");
 
-const precos = {
-    batata: valorBatata,
-    cenoura: valorCenoura,
-    rabanete: valorRabanete
-};
-
 function atualizaDinheiro() {
-    contadorDinheiro.textContent = `$ ${dinheiro}`;
+    contadorDinheiro.textContent = `$${dinheiro}`;
+}
+
+function atualizaLoja() {
+    Object.keys(plantas).forEach(plantaId => {
+        const planta = plantas[plantaId];
+        document.getElementById(`preco-${plantaId}`).textContent = `$${planta.preco}`;
+        document.getElementById(`qtd-${plantaId}`).textContent = planta.quantidade;
+    });
 }
 
 export function inicializaSelecaoSementes() {
@@ -26,7 +42,6 @@ export function inicializaSelecaoSementes() {
             if (event.target.closest('.compra-semente')) {
                 return;
             }
-
             if (itemSelecionado(semente)) {
                 desselecionaTodosItens(sementes);
             } else {
@@ -42,18 +57,17 @@ export function inicializaCompraSementes() {
 
     botoesCompra.forEach(botao => {
         botao.addEventListener("click", () => {
-            const id = botao.id.replace("btn-comprar-", "");
-            const precoUnitario = precos[id];
-            const inputQtd = document.querySelector(`#compra-qtd-${id}`);
-            const qtd = parseInt(inputQtd.value);
-            const total = precoUnitario * qtd;
+            const plantaId = botao.id.replace("btn-comprar-", "");
+            const planta = plantas[plantaId];
+            const inputQtd = document.querySelector(`#compra-qtd-${plantaId}`);
+            const qtdComprada = parseInt(inputQtd.value);
+            const total = planta.preco * qtdComprada;
 
             if (dinheiro >= total) {
                 dinheiro -= total;
+                planta.quantidade += qtdComprada;
                 atualizaDinheiro();
-
-                const spanQtd = document.querySelector(`#qtd-${id}`);
-                spanQtd.textContent = parseInt(spanQtd.textContent) + qtd;
+                document.getElementById(`qtd-${plantaId}`).textContent = planta.quantidade;
             } else {
                 alert("Dinheiro insuficiente!");
             }
@@ -61,8 +75,14 @@ export function inicializaCompraSementes() {
     });
 }
 
+export function adicionaDinheiro(valor) {
+    dinheiro += valor;
+    atualizaDinheiro();
+}
+
 export function inicializaMenu() {
     atualizaDinheiro();
+    atualizaLoja();
     inicializaSelecaoSementes();
     inicializaCompraSementes();
 }
