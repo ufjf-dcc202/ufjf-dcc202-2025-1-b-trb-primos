@@ -1,8 +1,8 @@
 import { itemSelecionado, selecionaItem, desselecionaTodosItens } from '../jogo/regras.js';
 
-let dinheiro = 500;
+export let dinheiro = 500;
 
-const plantas = {
+export const plantas = {
     batata: {
         quantidade: 0,
         preco: 50,

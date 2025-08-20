@@ -97,12 +97,12 @@ function secaSolo(espaco) {
     }, TEMPO_SECA);
 }
 
-export function terraFertil(){
-    return canteiro.classList.contains('terra-arada') || canteiro.classList.contains('terra-regada');
+export function terraFertil(espaco){
+    return espaco.classList.contains('terra-arada') || espaco.classList.contains('terra-regada');
 }
 
-export function terraRegada() {
-    return canteiro.classList.contains('terra-regada');
+export function terraRegada(espaco) {
+    return espaco.classList.contains('terra-regada');
 }
 
 export function espacoOcupado(espaco) {
