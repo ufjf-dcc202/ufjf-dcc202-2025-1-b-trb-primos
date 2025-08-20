@@ -1,8 +1,8 @@
-import { enxadaSelecionada, regadorSelecionado } from '../menu/ferramentas.js';
+import { ferramentaSelecionada } from '../menu/ferramentas.js';
 
 const canteiro = document.querySelector('.canteiro');
 const gridSize = 12;
-const TEMPO_SECA = 30000; //30 segundos
+const TEMPO_SECA = 30000;
 
 const probabilidades = {
     pedra: 0.15,
@@ -32,7 +32,8 @@ export function inicializaCanteiro() {
 export function limpaCanteiro() {
     canteiro.addEventListener('click', (e) => {
         const espacoClicado = e.target;
-        if(!enxadaSelecionada() && !regadorSelecionado()) {
+
+        if (!ferramentaSelecionada()) {
             if (espacoClicado.classList.contains('pedras')) {
                 espacoClicado.classList.remove('pedras');
             } else if (espacoClicado.classList.contains('ervas-daninhas')) {
@@ -45,7 +46,9 @@ export function limpaCanteiro() {
 export function preparaSolo() {
     canteiro.addEventListener('click', (e) => {
         const espacoClicado = e.target;
-        if (enxadaSelecionada() &&
+        const ferramenta = ferramentaSelecionada();
+
+        if (ferramenta && ferramenta.id === 'ferramenta-enxada' &&
             espacoClicado.classList.contains('espaco') &&
             !espacoClicado.classList.contains('pedras') &&
             !espacoClicado.classList.contains('ervas-daninhas') &&
@@ -55,13 +58,17 @@ export function preparaSolo() {
             espacoClicado.classList.add('terra-arada');
             secaSolo(espacoClicado);
         }
-    }); 
+    });
 }
 
 export function regaSolo() {
     canteiro.addEventListener('click', (e) => {
         const espacoClicado = e.target;
-        if (regadorSelecionado() && espacoClicado.classList.contains('terra-arada')) {
+        const ferramenta = ferramentaSelecionada();
+
+        if (ferramenta && ferramenta.id === 'ferramenta-regador' &&
+            espacoClicado.classList.contains('terra-arada')
+        ) {
             espacoClicado.classList.add('terra-regada');
             espacoClicado.classList.remove('terra-arada');
             secaSolo(espacoClicado);
@@ -88,7 +95,6 @@ function secaSolo(espaco) {
             }, TEMPO_SECA);
         }
     }, TEMPO_SECA);
-    
 }
 
 export function terraFertil(){
