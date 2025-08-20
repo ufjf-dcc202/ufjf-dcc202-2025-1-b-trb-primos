@@ -1,7 +1,18 @@
-import { itemSelecionado, selecionaItem, desselecionaTodosItens } from './src/utils/seleciona.js';
+import { itemSelecionado, selecionaItem, desselecionaTodosItens } from '../jogo/regras.js';
 
 let dinheiro = 500;
+
+const valorBatata = 50;
+const valorCenoura = 20;
+const valorRabanete = 35;
+
 const contadorDinheiro = document.getElementById("contador-dinheiro");
+
+const precos = {
+    batata: valorBatata,
+    cenoura: valorCenoura,
+    rabanete: valorRabanete
+};
 
 function atualizaDinheiro() {
     contadorDinheiro.textContent = `$ ${dinheiro}`;
@@ -11,7 +22,11 @@ export function inicializaSelecaoSementes() {
     const sementes = document.querySelectorAll(".semente-loja");
 
     sementes.forEach(semente => {
-        semente.addEventListener("click", () => {
+        semente.addEventListener("click", (event) => {
+            if (event.target.closest('.compra-semente')) {
+                return;
+            }
+
             if (itemSelecionado(semente)) {
                 desselecionaTodosItens(sementes);
             } else {
@@ -27,19 +42,17 @@ export function inicializaCompraSementes() {
 
     botoesCompra.forEach(botao => {
         botao.addEventListener("click", () => {
-            const container = botao.closest(".semente-loja");
-            const precoTexto = container.querySelector(".preco").textContent;
-            const precoUnitario = parseInt(precoTexto.replace(/\D/g, ""));
-            const inputQtd = container.querySelector("input[type='number']");
+            const id = botao.id.replace("btn-comprar-", "");
+            const precoUnitario = precos[id];
+            const inputQtd = document.querySelector(`#compra-qtd-${id}`);
             const qtd = parseInt(inputQtd.value);
             const total = precoUnitario * qtd;
 
             if (dinheiro >= total) {
                 dinheiro -= total;
-
                 atualizaDinheiro();
-                
-                const spanQtd = container.querySelector("span[id^='qtd-']");
+
+                const spanQtd = document.querySelector(`#qtd-${id}`);
                 spanQtd.textContent = parseInt(spanQtd.textContent) + qtd;
             } else {
                 alert("Dinheiro insuficiente!");
@@ -48,7 +61,6 @@ export function inicializaCompraSementes() {
     });
 }
 
-// Inicialização
 export function inicializaMenu() {
     atualizaDinheiro();
     inicializaSelecaoSementes();

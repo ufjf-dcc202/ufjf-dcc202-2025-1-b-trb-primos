@@ -1,4 +1,4 @@
-import { atualizaJogo } from './src/jogo/jogo.js';
+import { inicializaJogo } from './src/jogo/jogo.js';
 
-atualizaJogo();
+inicializaJogo();
 //configuraEventos();
