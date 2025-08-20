@@ -1,8 +1,12 @@
 import { ferramentaSelecionada } from '../menu/ferramentas.js';
+import { sementes } from "../menu/sementes.js";
 
-const canteiro = document.querySelector('.canteiro');
 const gridSize = 12;
-const TEMPO_SECA = 30000;
+const canteiro = document.querySelector('.canteiro');
+const tempoSeca = 30000;
+
+const classesRemoviveis = ['pedras', 'ervas-daninhas', 'planta-morta'];
+const classesBloqueioArar = ['pedras', 'ervas-daninhas', 'terra-arada', 'terra-regada'];
 
 const probabilidades = {
     pedra: 0.15,
@@ -34,14 +38,14 @@ export function limpaCanteiro() {
         const espacoClicado = e.target;
 
         if (!ferramentaSelecionada()) {
-            if (espacoClicado.classList.contains('pedras')) {
-                espacoClicado.classList.remove('pedras');
-            } else if (espacoClicado.classList.contains('ervas-daninhas')) {
-                espacoClicado.classList.remove('ervas-daninhas');
+            const temClasseRemovivel = classesRemoviveis.some(c => espacoClicado.classList.contains(c));
+            if (temClasseRemovivel) {
+                espacoClicado.classList.remove(...classesRemoviveis);
             }
         }
     });
 }
+
 
 export function preparaSolo() {
     canteiro.addEventListener('click', (e) => {
@@ -50,13 +54,9 @@ export function preparaSolo() {
 
         if (ferramenta && ferramenta.id === 'ferramenta-enxada' &&
             espacoClicado.classList.contains('espaco') &&
-            !espacoClicado.classList.contains('pedras') &&
-            !espacoClicado.classList.contains('ervas-daninhas') &&
-            !espacoClicado.classList.contains('terra-arada') &&
-            !espacoClicado.classList.contains('terra-regada')
+            !classesBloqueioArar.some(c => espacoClicado.classList.contains(c))
         ) {
             espacoClicado.classList.add('terra-arada');
-            secaSolo(espacoClicado);
         }
     });
 }
@@ -71,6 +71,11 @@ export function regaSolo() {
         ) {
             espacoClicado.classList.add('terra-regada');
             espacoClicado.classList.remove('terra-arada');
+            espacoClicado.dispatchEvent(new CustomEvent('solo-regado', {
+                bubbles: true,
+                detail: { posicao: espacoClicado.getAttribute('data-posicao') }
+            }));
+
             secaSolo(espacoClicado);
         }
     });
@@ -81,20 +86,12 @@ function secaSolo(espaco) {
         if (espaco.classList.contains('terra-regada')) {
             espaco.classList.remove('terra-regada');
             espaco.classList.add('terra-arada');
-            setTimeout(() => {
-                if (espaco.classList.contains('terra-arada')) {
-                    espaco.classList.remove('terra-arada');
-                }
-            }, TEMPO_SECA);
-        } else if (espaco.classList.contains('terra-arada')) {
-            espaco.classList.remove('terra-arada');
-            setTimeout(() => {
-                if (espaco.classList.contains('terra-arada')) {
-                    espaco.classList.remove('terra-arada');
-                }
-            }, TEMPO_SECA);
+            espaco.dispatchEvent(new CustomEvent('solo-secou', {
+                bubbles: true,
+                detail: { posicao: espaco.getAttribute('data-posicao') }
+            }));
         }
-    }, TEMPO_SECA);
+    }, tempoSeca);
 }
 
 export function terraFertil(espaco){
@@ -106,15 +103,11 @@ export function terraRegada(espaco) {
 }
 
 export function espacoOcupado(espaco) {
-    return espaco.classList.contains('batata1') || 
-        espaco.classList.contains('batata2') ||
-        espaco.classList.contains('batata3') ||
-        espaco.classList.contains('cenoura1') ||
-        espaco.classList.contains('cenoura2') ||
-        espaco.classList.contains('cenoura3') ||
-        espaco.classList.contains('rabanete1') ||
-        espaco.classList.contains('rabanete2') ||
-        espaco.classList.contains('rabanete3') ||
-        espaco.classList.contains('pedras') ||
-        espaco.classList.contains('ervas-daninhas');
+    const ocupadoPorPlanta = Object.values(sementes).some(semente =>
+        semente.estagios.some(estagio => espaco.classList.contains(estagio))
+    );
+
+    const ocupadoPorClasseFixa = classesRemoviveis.some(c => espaco.classList.contains(c));
+
+    return ocupadoPorPlanta || ocupadoPorClasseFixa;
 }

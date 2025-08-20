@@ -1,11 +1,21 @@
 import { itemSelecionado, selecionaItem, desselecionaTodosItens } from '../jogo/regras.js';
 
-const enxada = document.getElementById('ferramenta-enxada');
-const regador = document.getElementById('ferramenta-regador');
-const ferramentas = [enxada, regador];
+export const ferramentas = {
+    enxada: { nome: "Enxada", img: "assets/ferramentas/enxada.png" },
+    regador: { nome: "Regador", img: "assets/ferramentas/regador.png" }
+};
+
+export function criaFerramentas(ferramentaId, ferramenta) {
+    const div = document.createElement("div");
+    div.classList.add("ferramenta");
+    div.id = `ferramenta-${ferramentaId}`;
+    div.innerHTML = `<img src="${ferramenta.img}" alt="${ferramenta.nome}">`;
+    return div;
+}
 
 export function ferramentaSelecionada() {
-    return ferramentas.find(f => itemSelecionado(f));
+    const ferramentas = document.querySelectorAll(".ferramenta");
+    return Array.from(ferramentas).find(f => itemSelecionado(f));
 }
 
 function selecionaFerramenta(ferramenta) {
@@ -14,12 +24,14 @@ function selecionaFerramenta(ferramenta) {
 }
 
 export function selecaoFerramentas() {
-    ferramentas.forEach(f => {
-        f.addEventListener('click', () => {
-            if (itemSelecionado(f)) {
+    const ferramentas = document.querySelectorAll(".ferramenta");
+
+    ferramentas.forEach(ferramenta => {
+        ferramenta.addEventListener('click', () => {
+            if (itemSelecionado(ferramenta)) {
                 desselecionaTodosItens();
             } else {
-                selecionaFerramenta(f);
+                selecionaFerramenta(ferramenta);
             }
         });
     });

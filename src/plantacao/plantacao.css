@@ -123,3 +123,17 @@
     background-position: center;
     pointer-events: none;
 }
+
+.planta-morta::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
+    background-image: url('../../assets/plantacoes/planta-morta.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+}

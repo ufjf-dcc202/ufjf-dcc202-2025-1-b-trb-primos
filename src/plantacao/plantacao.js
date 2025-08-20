@@ -1,103 +1,120 @@
+import { sementes, quantidadeSementes, gastaSemente, sementeSelecionada, selecionaUltimoEstagio, selecionaTempoCrescimento, selecionaPrecoVenda } from "../menu/sementes.js";
+import { operacaoDinheiro } from "../menu/loja.js";
 import { terraFertil, terraRegada, espacoOcupado } from "../canteiro/canteiro.js";
-import { plantas, adicionaDinheiro } from "../menu/loja.js";
 
 const canteiro = document.querySelector('.canteiro');
 
+const tempoMorte = 5000;
+
+const morteTemporizadores = new WeakMap();
+
 function plantaSemente(espacoClicado, semente) {
-    switch (semente) {
-        case 'batata':
-            plantaCresce(espacoClicado, 'batata', 'batata1', 'batata2', 'batata3', 10000);
-            break;
-        case 'cenoura':
-            plantaCresce(espacoClicado, 'cenoura', 'cenoura1', 'cenoura2', 'cenoura3', 15000);
-            break;
-        case 'rabanete':
-            plantaCresce(espacoClicado, 'rabanete', 'rabanete1', 'rabanete2', 'rabanete3', 20000);
-            break;
-        default:
-            break;
-    }
+    const infoSemente = sementes[semente];
+    if (!infoSemente) return;
+
+    plantaCresce(espacoClicado, semente, infoSemente.estagios, infoSemente.tempoCrescimento);
 }
 
-function plantaCresce(espacoClicado, semente, nv1, nv2, nv3, tempo) {
+function plantaCresce(espacoClicado, semente, estagios, tempo) {
     if (terraFertil(espacoClicado) &&
-        sementeSelecionada(semente) &&
+        !!sementeSelecionada() &&
         quantidadeSementes(semente) > 0 &&
         !espacoOcupado(espacoClicado)
     ) {
-        espacoClicado.classList.add(nv1);
+        let indice = 0;
+
+        espacoClicado.classList.add(estagios[indice]);
         gastaSemente(semente);
 
-        if (terraRegada(espacoClicado)) {
-            setTimeout(() => {
-                if (espacoClicado.classList.contains(nv1) && terraRegada(espacoClicado)) {
-                    espacoClicado.classList.remove(nv1);
-                    espacoClicado.classList.add(nv2);
+        monitorarPlanta(espacoClicado, estagios[indice]);
 
-                    setTimeout(() => {
-                        if (espacoClicado.classList.contains(nv2) && terraRegada(espacoClicado)) {
-                            espacoClicado.classList.remove(nv2);
-                            espacoClicado.classList.add(nv3);
-                        }
-                    }, tempo);
+        function proximoEstagio() {
+            indice++;
+            if (indice < estagios.length) {
+                if (espacoClicado.classList.contains(estagios[indice - 1])) {
+                    espacoClicado.classList.remove(estagios[indice - 1]);
+                    espacoClicado.classList.add(estagios[indice]);
+                    monitorarPlanta(espacoClicado, estagios[indice]);
+                    setTimeout(proximoEstagio, tempo);
                 }
-            }, tempo);
+            }
         }
-    }
-    if (!terraFertil(espacoClicado)) {
-        espacoClicado.classList.remove(nv1, nv2, nv3);
+
+        setTimeout(proximoEstagio, tempo);
     }
 }
 
-function colhePlanta(espacoClicado) {
-    if (espacoClicado.classList.contains('batata3')) {
-        espacoClicado.classList.remove('batata3');
-        adicionaDinheiro(75);
-    } else if (espacoClicado.classList.contains('cenoura3')) {
-        espacoClicado.classList.remove('cenoura3');
-       adicionaDinheiro(30);
-    } else if (espacoClicado.classList.contains('rabanete3')) {
-        espacoClicado.classList.remove('rabanete3');
-        adicionaDinheiro(50);
+function monitorarPlanta(espaco, estagioAtual) {
+    if (espaco.dataset.morteTemporizador) {
+        clearTimeout(espaco.dataset.morteTemporizador);
+        delete espaco.dataset.morteTemporizador;
+    }
+
+    if (!terraRegada(espaco)) {
+        const temporizador = setTimeout(() => {
+            if (!terraRegada(espaco) && espaco.classList.contains(estagioAtual)) {
+                espaco.classList.remove(estagioAtual);
+                espaco.classList.add('planta-morta');
+            }
+            delete espaco.dataset.morteTemporizador;
+        }, tempoMorte);
+
+        espaco.dataset.morteTemporizador = temporizador;
     }
 }
 
-function quantidadeSementes(semente) {
-    if (plantas[semente]) {
-        return plantas[semente].quantidade;
-    }
-    return 0;
-}
-
-function gastaSemente(semente) {
-    if (plantas[semente] && plantas[semente].quantidade > 0) {
-        plantas[semente].quantidade--;
-        document.getElementById(`qtd-${semente}`).textContent = plantas[semente].quantidade;
+function cancelaTemporizadorMorte(espaco) {
+    const id = morteTemporizadores.get(espaco);
+    if (id) {
+        clearTimeout(id);
+        morteTemporizadores.delete(espaco);
     }
 }
 
-function sementeSelecionada() {
-    if (document.getElementById('semente-batata')?.classList.contains('selecionado')) {
-        return 'batata';
+function colhePlanta(espaco) {
+    const semente = Object.keys(sementes).find(s => {
+        const ultimoEstagio = selecionaUltimoEstagio(s);
+        return espaco.classList.contains(ultimoEstagio);
+    });
+
+    if (semente) {
+        const ultimoEstagio = selecionaUltimoEstagio(semente);
+        espaco.classList.remove(ultimoEstagio);
+        operacaoDinheiro(selecionaPrecoVenda(semente));
     }
-    if (document.getElementById('semente-cenoura')?.classList.contains('selecionado')) {
-        return 'cenoura';
-    }
-    if (document.getElementById('semente-rabanete')?.classList.contains('selecionado')) {
-        return 'rabanete';
-    }
-    return null;
 }
-export function canteiroListener() {
+
+export function cultivar() {
     canteiro.addEventListener('click', (e) => {
         const espacoClicado = e.target;
         const semente = sementeSelecionada();
+
         if (semente) {
             plantaSemente(espacoClicado, semente);
-        } else if (espacoClicado.classList.contains('batata3') ||
-                    espacoClicado.classList.contains('cenoura3') ||
-                    espacoClicado.classList.contains('rabanete3')) {
-            colhePlanta(espacoClicado);
+        } else {
+            const sementeParaColher = Object.keys(sementes).find(s => {
+                return espacoClicado.classList.contains(sementes[s].estagios.slice(-1)[0]);
+            });
+
+            if (sementeParaColher) {
+                colhePlanta(espacoClicado);
+            }
+        }
+    });
+
+    canteiro.addEventListener('solo-regado', (e) => {
+        const espaco = e.target;
+        cancelaTemporizadorMorte(espaco);
+    });
+
+    canteiro.addEventListener('solo-secou', (e) => {
+        const espaco = e.target;
+        const estagioAtual = Object.values(sementes)
+            .flatMap(s => s.estagios)
+            .find(c => espaco.classList.contains(c));
+
+        if (estagioAtual) {
+            monitorarPlanta(espaco, estagioAtual);
         }
     });
 }
