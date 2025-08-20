@@ -1,1 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/YHBcxhqH)
+Assets:
+Plantações e sementes: https://otterisk.itch.io/hana-caraka-farming-foraging?download
+Ferramentas: https://cupnooble.itch.io/sprout-lands-asset-pack?download
