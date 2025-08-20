@@ -35,7 +35,7 @@ function atualizaLoja() {
 }
 
 export function inicializaSelecaoSementes() {
-    const sementes = document.querySelectorAll(".semente-loja");
+    const sementes = document.querySelectorAll(".img-semente");
 
     sementes.forEach(semente => {
         semente.addEventListener("click", (event) => {
